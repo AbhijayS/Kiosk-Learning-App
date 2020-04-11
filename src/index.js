@@ -70,24 +70,36 @@ app.on('before-quit', event => {
 
 const allWords = [
   {
+    "word": "bike",
+    "path": path.join(__dirname, 'bike.webp'),
+  },
+  {
+    "word": "pop",
+    "path": path.join(__dirname, 'pop.jpg'),
+  },
+  {
+    "word": "top",
+    "path": path.join(__dirname, 'top.jpg'),
+  },
+  {
+    "word": "mop",
+    "path": path.join(__dirname, 'mop.webp'),
+  },
+  {
+    "word": "shop",
+    "path": path.join(__dirname, 'shop.jpg'),
+  },
+  {
+    "word": "game",
+    "path": path.join(__dirname, 'game.jpg'),
+  },
+  {
     "word": "blippi",
     "path": path.join(__dirname, 'blippi.jpg'),
   },
   {
     "word": "car",
     "path": path.join(__dirname, 'car.jpg'),
-  },
-  {
-    "word": "bike",
-    "path": path.join(__dirname, 'bike.webp'),
-  },
-  {
-    "word": "smell",
-    "path": path.join(__dirname, 'smell.jpg'),
-  },
-  {
-    "word": "game",
-    "path": path.join(__dirname, 'game.jpg'),
   },
 ]
 
@@ -110,7 +122,7 @@ ipcMain.on('synchronous-practice-complete', (event) => {
 // passed the quizz
 ipcMain.on('synchronous-mastery', (event) => {
   wordIndex = (wordIndex+1)%allWords.length
-  mainWindow.loadURL("https://google.com/");
+  mainWindow.loadURL("https://poki.com/en/trial-bike");
   setTimeout(() => {
     mainWindow.loadFile(path.join(__dirname, 'practice.html'));
   }, timeLimit)
