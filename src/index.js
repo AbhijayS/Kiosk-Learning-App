@@ -98,7 +98,7 @@ const allWords = [
 
 var wordIndex = 0
 var minScore = 5
-var timeout = 5*60*1000;
+var timeout = 3*60*1000;
 
 // get the next word in the sequence
 ipcMain.on('synchronous-load-word', (event) => {
