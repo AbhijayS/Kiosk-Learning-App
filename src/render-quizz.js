@@ -13,3 +13,14 @@ document.getElementById("inputID").addEventListener('change', (event) => {
         ipcRenderer.send('synchronous-failed');
     }
 })
+
+var speakWord = function() {
+    var synth = window.speechSynthesis;
+    var utter = new SpeechSynthesisUtterance(word.word);
+    utter.voice = synth.getVoices()[0];
+    utter.rate = 0.5;
+    utter.pitch = 2;
+    synth.speak(utter);
+}
+
+speakWord()

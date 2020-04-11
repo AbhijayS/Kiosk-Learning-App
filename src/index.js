@@ -72,33 +72,28 @@ const allWords = [
   {
     "word": "blippi",
     "path": path.join(__dirname, 'blippi.jpg'),
-    "score":0
   },
   {
     "word": "car",
     "path": path.join(__dirname, 'car.jpg'),
-    "score":0
   },
   {
     "word": "bike",
     "path": path.join(__dirname, 'bike.webp'),
-    "score":0
   },
   {
     "word": "smell",
     "path": path.join(__dirname, 'smell.jpg'),
-    "score":0
   },
   {
     "word": "game",
     "path": path.join(__dirname, 'game.jpg'),
-    "score":0
   },
 ]
 
 var wordIndex = 0
 var attempts = 5
-var timeout = 5*60*1000;
+var timeLimit = 5*60*1000;
 
 global.attempts = attempts;
 
@@ -107,32 +102,21 @@ ipcMain.on('synchronous-load-word', (event) => {
   event.returnValue = allWords[wordIndex]
 })
 
-// update word score
-ipcMain.on('synchronous-correct', (event) => {
-  allWords[wordIndex].score += 1;
-  if (allWords[wordIndex].score == attempts) {
-    mainWindow.loadFile(path.join(__dirname, 'quizz.html'));
-  } else {
-    mainWindow.loadFile(path.join(__dirname, 'practice.html'));
-  }
+// completed practice
+ipcMain.on('synchronous-practice-complete', (event) => {
+  mainWindow.loadFile(path.join(__dirname, 'quizz.html'));
 })
 
 // passed the quizz
 ipcMain.on('synchronous-mastery', (event) => {
   wordIndex = (wordIndex+1)%allWords.length
-  if (wordIndex == 0) {
-    allWords.forEach((value, index, thisArray) => {
-      thisArray[index].score = 0;
-    })
-  }
   mainWindow.loadURL("https://poki.com/en/g/moto-x3m");
   setTimeout(() => {
     mainWindow.loadFile(path.join(__dirname, 'practice.html'));
-  }, timeout)
+  }, timeLimit)
 })
 
 // failed the quizz
 ipcMain.on('synchronous-failed', (event) => {
-  allWords[wordIndex].score = 0;
   mainWindow.loadFile(path.join(__dirname, 'practice.html'));
 })
