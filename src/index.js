@@ -13,10 +13,10 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    frame: false,
-    fullscreen: true,
-    autoHideMenuBar: true,
-    kiosk: true,
+    // frame: false,
+    // fullscreen: true,
+    // autoHideMenuBar: true,
+    // kiosk: true,
     alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true
@@ -30,13 +30,13 @@ const createWindow = () => {
     app.quit();
   })
 
-  mainWindow.on('closed', () => {
-      win = null
-  })
+  // mainWindow.on('closed', () => {
+  //     win = null
+  // })
 
-  mainWindow.on('close', event => {
-      event.preventDefault() // stop the browser window from being closed
-  })
+  // mainWindow.on('close', event => {
+  //     event.preventDefault() // stop the browser window from being closed
+  // })
 };
 
 // This method will be called when Electron has finished
@@ -59,11 +59,11 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-});
-
-app.on('before-quit', event => {
-  event.preventDefault() // prevent the process from ending
 })
+
+// app.on('before-quit', event => {
+//   event.preventDefault() // prevent the process from ending
+// })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
@@ -97,8 +97,10 @@ const allWords = [
 ]
 
 var wordIndex = 0
-var minScore = 5
-var timeout = 3*60*1000;
+var attempts = 5
+var timeout = 5*60*1000;
+
+global.attempts = attempts;
 
 // get the next word in the sequence
 ipcMain.on('synchronous-load-word', (event) => {
@@ -108,7 +110,7 @@ ipcMain.on('synchronous-load-word', (event) => {
 // update word score
 ipcMain.on('synchronous-correct', (event) => {
   allWords[wordIndex].score += 1;
-  if (allWords[wordIndex].score == minScore) {
+  if (allWords[wordIndex].score == attempts) {
     mainWindow.loadFile(path.join(__dirname, 'quizz.html'));
   } else {
     mainWindow.loadFile(path.join(__dirname, 'practice.html'));
