@@ -13,10 +13,10 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    // frame: false,
-    // fullscreen: true,
-    // autoHideMenuBar: true,
-    // kiosk: true,
+    frame: false,
+    fullscreen: true,
+    autoHideMenuBar: true,
+    kiosk: true,
     alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true
@@ -30,13 +30,13 @@ const createWindow = () => {
     app.quit();
   })
 
-  // mainWindow.on('closed', () => {
-  //     win = null
-  // })
+  mainWindow.on('closed', () => {
+      win = null
+  })
 
-  // mainWindow.on('close', event => {
-  //     event.preventDefault() // stop the browser window from being closed
-  // })
+  mainWindow.on('close', event => {
+      event.preventDefault() // stop the browser window from being closed
+  })
 };
 
 // This method will be called when Electron has finished
@@ -61,9 +61,9 @@ app.on('activate', () => {
   }
 })
 
-// app.on('before-quit', event => {
-//   event.preventDefault() // prevent the process from ending
-// })
+app.on('before-quit', event => {
+  event.preventDefault() // prevent the process from ending
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
@@ -110,7 +110,7 @@ ipcMain.on('synchronous-practice-complete', (event) => {
 // passed the quizz
 ipcMain.on('synchronous-mastery', (event) => {
   wordIndex = (wordIndex+1)%allWords.length
-  mainWindow.loadURL("https://poki.com/en/g/moto-x3m");
+  mainWindow.loadURL("https://google.com/");
   setTimeout(() => {
     mainWindow.loadFile(path.join(__dirname, 'practice.html'));
   }, timeLimit)
