@@ -105,7 +105,7 @@ const allWords = [
 
 var wordIndex = 0
 var attempts = 5
-var timeLimit = 5*60*1000;
+var timeLimit = 2*60*1000;
 
 global.attempts = attempts;
 
@@ -122,7 +122,7 @@ ipcMain.on('synchronous-practice-complete', (event) => {
 // passed the quizz
 ipcMain.on('synchronous-mastery', (event) => {
   wordIndex = (wordIndex+1)%allWords.length
-  mainWindow.loadURL("https://poki.com/en/trial-bike");
+  mainWindow.loadURL("https://www.youtube.com/watch?v=WyK_64-QCTc");
   setTimeout(() => {
     mainWindow.loadFile(path.join(__dirname, 'practice.html'));
   }, timeLimit)
